@@ -6,17 +6,7 @@ form.addEventListener('submit', (evento) => {
     //Intercepta e interrompe o comportamento padrão:
     evento.preventDefault();
 
-    //obtem o objeto do evento:
-    // console.log(evento);
-
-    //obtendo o array de elementos e seus valores pela posição: 
-    // console.log(evento.target[0].value);
-    // console.log(evento.target[1].value);
-
-    //obtendo o array de elementos e seus nomes : 
-    // console.log(evento.target.elements['nome'].value);
-    // console.log(evento.target.elements['quantidade'].value);
-
+    //Obtem os campos:
     const nome = evento.target.elements['nome'];
     const quantidade = evento.target.elements['quantidade'];
 
