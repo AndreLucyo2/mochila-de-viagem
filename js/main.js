@@ -2,18 +2,49 @@
 const form = document.getElementById("novoItem");
 
 form.addEventListener('submit', (evento) => {
-    //interrompe o comportamento padrão:
+    //Intercepta e interrompe o comportamento padrão:
     evento.preventDefault();
 
     //obtem o objeto do evento:
-    console.log(evento);
+    // console.log(evento);
 
     //obtendo o array de elementos e seus valores pela posição: 
-    console.log(evento.target[0].value);
-    console.log(evento.target[1].value);
+    // console.log(evento.target[0].value);
+    // console.log(evento.target[1].value);
 
     //obtendo o array de elementos e seus nomes : 
-    console.log(evento.target.elements['nome'].value);
-    console.log(evento.target.elements['quantidade'].value);
+    // console.log(evento.target.elements['nome'].value);
+    // console.log(evento.target.elements['quantidade'].value);
+
+    const valNome = evento.target.elements['nome'].value;
+    const valQuantidade = evento.target.elements['quantidade'].value;
+
+    criarElemento(valNome, valQuantidade);
 
 })
+
+//Vai criar um novo item ali na pagina:
+function criarElemento(nome, quantidade) {
+
+    console.log(nome);
+    console.log(quantidade);
+
+    //Criar este elemento html no js: <li class="item"><strong>7</strong>Camisas</li>
+    //<li class="item">
+    const novoItem = document.createElement('li');
+    novoItem.classList.add('item');
+
+    //<strong>7</strong>
+    const numeroItem = document.createElement('strong');
+    numeroItem.innerHTML = quantidade;
+
+    //<li class="item"><strong>7</strong>
+    novoItem.appendChild(numeroItem);
+    novoItem.innerHTML += nome;
+
+
+    console.log(novoItem);
+
+    const lista = document.getElementById('lista');
+    lista.appendChild(novoItem);
+}
