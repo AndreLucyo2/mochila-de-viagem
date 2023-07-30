@@ -17,12 +17,18 @@ form.addEventListener('submit', (evento) => {
     // console.log(evento.target.elements['nome'].value);
     // console.log(evento.target.elements['quantidade'].value);
 
-    const valNome = evento.target.elements['nome'].value;
-    const valQuantidade = evento.target.elements['quantidade'].value;
+    const nome = evento.target.elements['nome'];
+    const quantidade = evento.target.elements['quantidade'];
 
-    criarElemento(valNome, valQuantidade);
-
+    criarElemento(nome.value, quantidade.value);
+    limparForm({nome:nome,quantidade:quantidade});
 })
+
+/** Limpa os campos do form */
+function limparForm({ nome, quantidade }) {
+    nome.value = '';
+    quantidade.value = '';
+}
 
 //Vai criar um novo item ali na pagina:
 function criarElemento(nome, quantidade) {
@@ -43,8 +49,7 @@ function criarElemento(nome, quantidade) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += nome;
 
-
-    console.log(novoItem);
+    //console.log(novoItem);
 
     lista.appendChild(novoItem);
 }
