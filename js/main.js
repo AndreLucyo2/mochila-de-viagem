@@ -28,17 +28,30 @@ form.addEventListener('submit', (evento) => {
         "quantidade": quantidade.value
     }
 
+    //Valida se esta criando ou atualizando:
     if (itemExist) {
         //Se ele existe ele mantem o id
         itemAtual.id = itemExist.id;
+
         atualizarElementoHTML(itemAtual);
+
+        //Atualiza item do array: sobrescreve totalmente o item na posição
+        itens[itemExist.id] = itemAtual;
 
     } else {
         //Se elemento não é encontrado cria o elemto novo com o id do ultimo elemento
         itemAtual.id = itens.lengt;
         criarElementoHTML(itemAtual);
+
+        //add novo item no array
+        itens.push(itemAtual);
+
     }
 
+    //salva na memoria do navegador: array atualizado
+    addItensLocalStorage(itens);
+
+    //Limpa o form
     limparForm({ nome: nome, quantidade: quantidade });
 })
 
@@ -50,10 +63,6 @@ function limparForm({ nome, quantidade }) {
 
 //Vai criar um novo item ali na pagina:
 function criarElementoHTML(item) {
-
-    console.log(item.nome);
-    console.log(item.quantidade);
-
     //Criar este elemento html no js: <li class="item"><strong>7</strong>Camisas</li>
     //<li class="item">
     const novoItem = document.createElement('li');
@@ -68,25 +77,19 @@ function criarElementoHTML(item) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += item.nome;
 
+    //adiciona o elemento como filho da lista:
     lista.appendChild(novoItem);
-
-    addItemLocalStorage(item);
-}
-
-//Salva o novo item no local Storage : maximo até 5MB
-function addItemLocalStorage(item) {
-
-    //add novo item no array
-    itens.push(item);
-
-    //Sava o array convertendo o JOSON em string pois, local Storage só permite guardar string
-    localStorage.setItem(localStName, JSON.stringify(itens));
-
 }
 
 function atualizarElementoHTML(item) {
     //Vai atualizar para a quantida de atual do item: 
     document.querySelector("[data-id='" + item.id + "']").innerHTML = item.quantidade;
+}
+
+//Salva todo o arrau no local Storage : maximo até 5MB
+function addItensLocalStorage(arrItens) {
+    //Sava o array convertendo o JOSON em string pois, local Storage só permite guardar string
+    localStorage.setItem(localStName, JSON.stringify(arrItens));
 }
 
 
