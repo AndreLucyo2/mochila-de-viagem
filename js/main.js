@@ -1,5 +1,6 @@
 //console.log(document.getElementById("novoItem"));
 const form = document.getElementById("novoItem");
+const lista = document.getElementById('lista');
 
 form.addEventListener('submit', (evento) => {
     //Intercepta e interrompe o comportamento padrão:
@@ -45,6 +46,5 @@ function criarElemento(nome, quantidade) {
 
     console.log(novoItem);
 
-    const lista = document.getElementById('lista');
     lista.appendChild(novoItem);
 }
