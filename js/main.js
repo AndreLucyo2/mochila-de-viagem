@@ -1,6 +1,9 @@
 //console.log(document.getElementById("novoItem"));
 const form = document.getElementById("novoItem");
 const lista = document.getElementById('lista');
+//Array que representa uma "tabela" no local storage do navengador
+const itens = [];
+
 
 form.addEventListener('submit', (evento) => {
     //Intercepta e interrompe o comportamento padrão:
@@ -10,8 +13,11 @@ form.addEventListener('submit', (evento) => {
     const nome = evento.target.elements['nome'];
     const quantidade = evento.target.elements['quantidade'];
 
-    criarElemento(nome.value, quantidade.value);
-    limparForm({nome:nome,quantidade:quantidade});
+    criarElementoHTML(nome.value, quantidade.value);
+
+    addItemLocalStorage({ nome: nome.value, quantidade: quantidade.value });
+
+    limparForm({ nome: nome, quantidade: quantidade });
 })
 
 /** Limpa os campos do form */
@@ -21,7 +27,7 @@ function limparForm({ nome, quantidade }) {
 }
 
 //Vai criar um novo item ali na pagina:
-function criarElemento(nome, quantidade) {
+function criarElementoHTML(nome, quantidade) {
 
     console.log(nome);
     console.log(quantidade);
@@ -39,7 +45,20 @@ function criarElemento(nome, quantidade) {
     novoItem.appendChild(numeroItem);
     novoItem.innerHTML += nome;
 
-    //console.log(novoItem);
-
     lista.appendChild(novoItem);
+}
+
+function addItemLocalStorage({ nome, quantidade }) {
+
+    //Cria o objeto js:
+    const itemAtual = {
+        "nome": nome,
+        "quantidade": quantidade
+    }
+
+    itens.push(itemAtual);
+
+    //Sava o array convertido em string: local Storage só permite guardar string
+    localStorage.setItem('ITEM', JSON.stringify(itens));
+
 }
