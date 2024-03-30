@@ -6,7 +6,7 @@ const localStName = 'ITENS';
 //Obtem os dados salvos no local storage converte de string para JSON
 const itens = JSON.parse(localStorage.getItem(localStName)) || [];
 
-//cira os teins ao carregar a pagina:
+//cria os itens ao carregar a pagina:
 itens.forEach(element => {
     criarElementoHTML(element);
 });
